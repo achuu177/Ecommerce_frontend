@@ -46,7 +46,7 @@ export const AddNewProduct = ({ role = "seller" }) => {
         navigate("/admin");
       }
 
-      toast.success("Product added successful");
+      toast.success("Product added successfully");
     } catch (error) {
       toast.error("Product added  failed. Please try again!");
       console.log(error);

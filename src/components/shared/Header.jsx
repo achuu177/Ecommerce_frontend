@@ -73,9 +73,7 @@ export const Header = () => {
                 <DarkMode />
               </span>
             </NavItem>
-            <NavItem className="mx-2" style={{ marginTop: 15 }}>
-              <HideBanner />
-            </NavItem>
+           
           </Nav>
           <Form className="d-flex me-auto w-100 mt-2" onSubmit={handleSubmit}>
             <Form.Control

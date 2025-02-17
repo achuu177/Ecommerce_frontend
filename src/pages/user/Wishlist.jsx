@@ -49,7 +49,7 @@ export const Wishlist = () => {
       )}
       {wishlistData?.products?.length === 0 && (
         <Link className="text-decoration-none" to={"/"}>
-          <UnHappy message={"Your wishlist is empty!"} theme={theme} />
+          <UnHappy message={"Your wishlist is currently empty!"} theme={theme} />
         </Link>
       )}
       {wishlistData?.products?.map((product) => (

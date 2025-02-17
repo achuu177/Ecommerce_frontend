@@ -67,7 +67,7 @@ export const Profile = ({ role = "user", action }) => {
       toast.success("Profile updated successfully");
       setEdit(false);
     } catch (error) {
-      toast.error("Profile update failed. Please try again!");
+      toast.error("Profile updation failed. Please try again!");
     }
   };
 

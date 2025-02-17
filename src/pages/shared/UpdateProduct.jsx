@@ -91,7 +91,7 @@ export const UpdateProduct = ({role = 'seller'}) => {
           : `/seller/update-product/${productId}`
       );
     } catch (error) {
-      toast.error("Failed to update product.");
+      toast.error("Product updation failed.");
       console.error(error);
     }
   };

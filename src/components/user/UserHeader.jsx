@@ -225,9 +225,7 @@ export const UserHeader = () => {
             <NavItem className="mx-2" style={{ marginTop: 12 }}>
               <DarkMode />
             </NavItem>
-            <NavItem className=" mx-2" style={{ marginTop: 15 }}>
-              <HideBanner />
-            </NavItem>
+           
           </Nav>
           <Form className="d-flex mt-2 me-auto w-100" onSubmit={handleSubmit}>
             <Form.Control

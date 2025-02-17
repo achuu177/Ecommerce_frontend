@@ -21,7 +21,7 @@ export const Footer = () => {
               to={"/seller/signup"}
               className="text-decoration-none text-white"
             >
-              Sell on stOre
+              Sell on TreNdzY
             </Link>
           </li>
           <li>

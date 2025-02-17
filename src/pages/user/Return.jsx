@@ -57,7 +57,7 @@ export const Return = () => {
           <Button
             className="rounded-2 border-0 px-4 py-2 hover text-black text-center text-white mt-1"
             type="submit"
-            variant={theme ? "warning" : "dark"}
+            variant={theme ? "primary" : "dark"}
           >
             Submit
           </Button>

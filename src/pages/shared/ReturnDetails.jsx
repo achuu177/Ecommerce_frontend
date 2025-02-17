@@ -108,7 +108,7 @@ export const ReturnDetails = ({ role = "admin" }) => {
                 <Button
                   onClick={() => actionHandler("approve")}
                   className="text-white me-1  "
-                  variant={theme ? "warning " : "dark "}
+                  variant={theme ? "primary " : "dark "}
                 >
                   <span className="me-1"></span>
                   Approve
@@ -116,7 +116,7 @@ export const ReturnDetails = ({ role = "admin" }) => {
                 <Button
                   onClick={() => actionHandler("reject")}
                   className=" text-white "
-                  variant={theme ? "warning " : "dark "}
+                  variant={theme ? "primary " : "dark "}
                 >
                   <span className="me-1"></span>
                   Reject

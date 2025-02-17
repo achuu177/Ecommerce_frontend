@@ -51,7 +51,7 @@ export const UserOrders = () => {
       {orders.length === 0 && (
         <Link className="text-decoration-none" to={"/"}>
           <UnHappy
-            message={"We are still waiting to take your first order!"}
+            message={"We are still waiting for your first order!"}
             theme={theme}
           />
         </Link>

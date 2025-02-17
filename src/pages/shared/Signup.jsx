@@ -62,7 +62,7 @@ export const Signup = ({ role = "user" }) => {
       });
       if (response) {
         // Display result
-        toast.success("Signup successful");
+        toast.success("Signup successfully");
         // Navigate to login
         navigate(user.login_route);
       }

@@ -64,7 +64,7 @@ export const ProductCard = ({ product }) => {
             url: "/wishlist/remove-product",
             data: { productId },
           });
-          toast.success("Product removed from wishlist!");
+          toast.success("Product removed from wishlist");
         } catch (error) {
           console.log(error);
         }
@@ -77,7 +77,7 @@ export const ProductCard = ({ product }) => {
             url: "/wishlist/add-product",
             data: { productId },
           });
-          toast.success("Product added to wishlist!");
+          toast.success("Product added to wishlist");
         } catch (error) {
           toast("Please login!");
           console.log(error);

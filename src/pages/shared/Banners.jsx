@@ -68,7 +68,7 @@ export const Banners = ({ role = "admin" }) => {
 
   return (
     <Container style={{ minHeight: 400 }}>
-      <h1 className={theme ? "text-center text-black mt-5" : "text-center text-white mt-5"}>Banners</h1>
+      <h1 className={theme ? "text-center text-black mt-5" : "text-center text-white mt-5"}>Carousels</h1>
       <Row className="mt-4">
         {banners?.map((banner) => (
           <Col key={banner._id} md={4} className="mb-4">

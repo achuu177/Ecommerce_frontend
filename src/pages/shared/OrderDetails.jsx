@@ -107,7 +107,7 @@ export const OrderDetails = ({ role = "admin", action = "Success" }) => {
           ) : (
             <Button
               className="w-100 text-white "
-              variant={theme ? "warning" : "dark"}
+              variant={theme ? "primary" : "dark"}
               onClick={actionHandler}
             >
               <span className="me-1"></span>

@@ -74,7 +74,7 @@ export const Cart = () => {
 
   if (!cartData?.products?.length) {
     return (<Link className="text-decoration-none" to={"/"}>
-      <UnHappy message={"Your cart is empty!"} theme={theme} />;
+      <UnHappy message={"Your cart is currently empty!"} theme={theme} />;
     </Link>)
   }
 

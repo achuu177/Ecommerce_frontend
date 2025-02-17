@@ -39,7 +39,7 @@ export const PaymentSuccess = () => {
   return (
     <>
     <Link className="text-decoration-none" to={"/"}>
-    <Happy message={'Your payment success!'} theme={theme}/>
+    <Happy message={'Your payment was successful!'} theme={theme}/>
     </Link>
     </>
   );

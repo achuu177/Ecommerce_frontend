@@ -133,7 +133,7 @@ export const ProductDetails = () => {
             <Col xs={12}>
               <Card
                 className="mt-5"
-                style={{ backgroundColor: theme ? "#FFF6E3" : "#d9d9d9" }}
+                style={{ backgroundColor: theme ? "#FAFAFA" : "#d9d9d9" }}
               >
                 <Card.Body>
                   <Card.Title className="text-center fw-bold p-2">

@@ -153,7 +153,7 @@ export const SellerHeader = () => {
           </NavDropdown>
           <NavDropdown
             className="mt-2 me-4 text-white"
-            title={<span className="text-white h5 hover">Banner</span>}
+            title={<span className="text-white h5 hover">Carousel</span>}
             id="navbarScrollingDropdown"
           >
             <NavDropdown.Item as={Link} to={"/seller/banners"}>
@@ -161,7 +161,7 @@ export const SellerHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Banners
+                Carousels
               </span>
             </NavDropdown.Item>
             <NavDropdown.Divider />
