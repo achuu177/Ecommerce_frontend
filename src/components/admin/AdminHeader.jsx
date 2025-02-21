@@ -114,7 +114,7 @@ export const AdminHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Inactive
+                Inactive Sellers
               </span>
             </NavDropdown.Item>
             <NavDropdown.Divider />
@@ -147,7 +147,7 @@ export const AdminHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Inactive
+                Inactive Users
               </span>
             </NavDropdown.Item>
 
@@ -206,7 +206,7 @@ export const AdminHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Return: Approved
+                Approved Returns
               </span>
             </NavDropdown.Item>
 
@@ -216,7 +216,7 @@ export const AdminHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Return: Rejected
+              Rejected Returns
               </span>
             </NavDropdown.Item>
           </NavDropdown>

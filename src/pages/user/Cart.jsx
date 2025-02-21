@@ -2,80 +2,112 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Button, Card, Row, Col, Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { axiosInstance } from "../../config/axiosInstance";
 import { OrderIcon } from "../../components/shared/OrderIcon";
 import { UnHappy } from "../../components/shared/UnHappy";
+import { setCartData } from "../../redux/features/cartSlice"; // ✅ Redux action
 
 export const Cart = () => {
-  // Get current theme
+  const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
-
-  // Get cart data
   const { cartData } = useSelector((state) => state.cart);
 
-  // Add quantity
+  // Fetch fresh cart data
+  const fetchCartData = async () => {
+    try {
+      const response = await axiosInstance.get("/cart");
+      dispatch(setCartData(response.data)); // ✅ Update Redux store
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
+
+  // *Add quantity*
   const addQuantity = async (productId) => {
     try {
-      // Api call
-      await axiosInstance({
-        method: "POST",
-        url: "/cart/add-cartQuantity",
-        data: { productId },
-      });
+      const updatedCart = {
+        ...cartData,
+        products: cartData.products.map((product) =>
+          product.productId._id === productId
+            ? { ...product, quantity: product.quantity + 1 }
+            : product
+        ),
+        totalPrice: cartData.totalPrice + cartData.products.find(p => p.productId._id === productId).price, // ✅ Update total
+      };
+      dispatch(setCartData(updatedCart));
+
+      await axiosInstance.post("/cart/add-cartQuantity", { productId });
 
       toast.success("Quantity increased");
+      fetchCartData(); // ✅ Fetch fresh data for accuracy
     } catch (error) {
-      console.log(error);
-
-      toast.error(
-        error?.response?.data?.message || "Error while adding the product"
-      );
+      console.error(error);
+      toast.error(error?.response?.data?.message || "Error while adding the product");
     }
   };
 
-  // Remove quantity
+  // *Remove quantity / Remove product if 0*
   const removeQuantity = async (productId) => {
     try {
-      await axiosInstance({
-        method: "DELETE",
-        url: "/cart/remove-product",
-        data: { productId },
-      });
+      const product = cartData.products.find((p) => p.productId._id === productId);
+      if (!product) return;
 
-      toast.success("Quantity decreased");
+      if (product.quantity === 1) {
+        // ✅ Remove product from cart when quantity becomes zero
+        await axiosInstance.delete("/cart/remove-product", { data: { productId } });
+
+        const updatedCart = {
+          ...cartData,
+          products: cartData.products.filter((p) => p.productId._id !== productId),
+          totalPrice: cartData.totalPrice - product.price, // ✅ Update total
+        };
+        dispatch(setCartData(updatedCart));
+
+        toast.success("Product removed from cart");
+      } else {
+        // ✅ Decrease quantity normally
+        const updatedCart = {
+          ...cartData,
+          products: cartData.products.map((product) =>
+            product.productId._id === productId
+              ? { ...product, quantity: product.quantity - 1 }
+              : product
+          ),
+          totalPrice: cartData.totalPrice - product.price, // ✅ Update total
+        };
+        dispatch(setCartData(updatedCart));
+
+        await axiosInstance.delete("/cart/remove-product", { data: { productId } });
+        toast.success("Quantity decreased");
+      }
+
+      fetchCartData(); // ✅ Fetch fresh data for accuracy
     } catch (error) {
-      console.log(error);
-      toast.error(
-        error?.response?.data?.message || "Error while removing the product"
-      );
+      console.error(error);
+      toast.error(error?.response?.data?.message || "Error while removing the product");
     }
   };
 
-  // Make payment
+  // *Make payment*
   const makePayment = async () => {
     try {
-      const stripe = await loadStripe(
-        import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
-      );
-
-      const session = await axiosInstance({
-        url: "/payment/create-checkout-session",
-        method: "POST",
-        data: { products: cartData?.products },
+      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      const session = await axiosInstance.post("/payment/create-checkout-session", {
+        products: cartData?.products,
       });
-      const result = stripe.redirectToCheckout({
-        sessionId: session.data.sessionId,
-      });
+      await stripe.redirectToCheckout({ sessionId: session.data.sessionId });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   if (!cartData?.products?.length) {
-    return (<Link className="text-decoration-none" to={"/"}>
-      <UnHappy message={"Your cart is currently empty!"} theme={theme} />;
-    </Link>)
+    return (
+      <Link className="text-decoration-none" to={"/"}>
+        <UnHappy message={"Your cart is empty!"} theme={theme} />
+      </Link>
+    );
   }
 
   return (

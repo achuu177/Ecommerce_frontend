@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export const CartIcon = ({ height, component }) => {
+export const CartIcon = ({ height }) => {
   const { cartData } = useSelector((state) => state.cart);
 
   return (
@@ -14,15 +14,14 @@ export const CartIcon = ({ height, component }) => {
         className="size-6 text-white fw-lighter"
         height={height || "40px"}
       >
-        {/* New Cart Icon Path */}
+        {/* Updated Cart Icon Path */}
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M3 3h18l-1.5 9H4.5L3 3zm3 13a2 2 0 1 0 4 0 2 2 0 0 0-4 0zM17 16a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"
+          d="M2.25 3h1.5l1.3 3.25m0 0L7.5 15.75a1.5 1.5 0 0 0 1.4 1.03h7.2a1.5 1.5 0 0 0 1.4-1.03l2.35-8.5m-14.35 0h12.5"
         />
-        <text x="12" y="12" textAnchor="middle" fontSize="6" fill="black">
-          {component === "header" ? cartData?.products?.length : null}
-        </text>
+        <circle cx="9" cy="19" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+        <circle cx="17" cy="19" r="1.5" stroke="currentColor" strokeWidth="1.5" />
       </svg>
     </>
   );

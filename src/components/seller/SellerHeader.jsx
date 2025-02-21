@@ -137,7 +137,7 @@ export const SellerHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Return: Approved
+                 Approved Returns
               </span>
             </NavDropdown.Item>
 
@@ -147,7 +147,7 @@ export const SellerHeader = () => {
                 className="text-black hover"
                 onClick={() => dispatch(setSearchValue(""))}
               >
-                Return: Rejected
+                Rejected Returns
               </span>
             </NavDropdown.Item>
           </NavDropdown>

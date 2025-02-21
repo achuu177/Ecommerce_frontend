@@ -1,30 +1,38 @@
 import toast from "react-hot-toast";
 import { Container, Button, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../../config/axiosInstance";
 import { UnHappy } from "../../components/shared/UnHappy";
+import { setWishlistData } from "../../redux/features/wishlistSlice";
 
 export const Wishlist = () => {
+  const dispatch = useDispatch();
+
   // Get current theme
   const { theme } = useSelector((state) => state.theme);
 
   // Get current wishlist data
   const { wishlistData } = useSelector((state) => state.wishlist);
 
+  // Function to fetch updated wishlist
+  const fetchWishlist = async () => {
+    try {
+      const response = await axiosInstance.get("/wishlist/wishlist");
+      dispatch(setWishlistData(response.data.data)); // Update Redux store
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // Add to cart
   const addToCart = async (productId) => {
     try {
-      // Api call
-      const response = await axiosInstance({
-        method: "POST",
-        url: "/cart/add-product-wishlist-to-cart",
-        data: { productId },
-      });
+      await axiosInstance.post("/cart/add-product-wishlist-to-cart", { productId });
       toast.success("Product added to cart");
-      console.log(response);
+      fetchWishlist(); // Fetch updated wishlist after adding to cart
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Error adding to cart");
       console.log(error);
     }
   };
@@ -32,12 +40,13 @@ export const Wishlist = () => {
   // Remove product
   const removeProduct = async (productId) => {
     try {
-      const response = await axiosInstance({
-        method: "DELETE",
-        url: "/wishlist/remove-product",
+      await axiosInstance.delete("/wishlist/remove-product", {
         data: { productId },
       });
+      toast.success("Product removed from wishlist");
+      fetchWishlist(); // Fetch updated wishlist after removing product
     } catch (error) {
+      toast.error("Error removing product");
       console.log(error);
     }
   };
@@ -73,13 +82,13 @@ export const Wishlist = () => {
           <Col xs={12} md={10}>
             <Link
               className="text-decoration-none text-black"
-              to={`/product-details/${product._id}`}
+              to={`/product-details/${product.productId._id}`}
             >
               <div className="fw-bold mt-2">{product.productId.title}</div>
             </Link>
 
             <div className="fw-normal mt-2">
-            {product.productId.description}
+              {product.productId.description}
             </div>
             <div className="fw-bold mt-3">₹{product.productId.price}</div>
 
